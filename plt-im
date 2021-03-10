@@ -1,0 +1,34 @@
+#!/usr/bin/python3
+
+# TODO:
+# - trim options (2 percent highest and lowest for heatmaps
+# - more args options (axes on/off)
+# - rdShow?
+# - make plt-saveim script
+
+import matplotlib.pyplot as plt
+import numpy as np
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("filename", type=str)
+parser.add_argument("-cb", "--colorbar", action="store_true")
+parser.add_argument("-c", "--cmap", type=str, default="jet")
+
+args = parser.parse_args()
+
+img_files = [".png", ".jpg", ".jpeg"]
+	
+if args.filename[-4:] == ".npy":
+	data = np.load(args.filename)
+	plt.imshow(data, cmap=args.cmap)
+	plt.tight_layout()
+
+elif args.filename[-4:] in img_files:
+	plt.imread(args.filename, cmap=args.cmap)
+	plt.tight_layout()
+
+if args.colorbar:
+	plt.colorbar()
+
+plt.show()

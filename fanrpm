@@ -1,0 +1,1 @@
+while true; do sensors | grep RPM; sleep 1; done;
